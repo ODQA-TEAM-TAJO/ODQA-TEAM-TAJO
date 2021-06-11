@@ -1,10 +1,19 @@
-![image](https://user-images.githubusercontent.com/50580028/121635097-a377c880-cac0-11eb-934b-8433220c87d2.png)
+<p align="center"><img src="https://user-images.githubusercontent.com/50580028/121635097-a377c880-cac0-11eb-934b-8433220c87d2.png"></p>
+<h1 align="center">TAJO chatbot📚</h1>
 
-# ODQA-TEAM-TAJO
-## 소개
-ODQA 기반 챗봇 생성 
+## 프로젝트 소개 -  Open Domain Question Answering
+ODQA 기반 챗봇 생성
+## Table of Contents
+- [요구 사항 🚀](#요구-사항-)
+- [파일 구성](#파일-구성)
+- [데이터](#데이터)
+- [훈련, 평가, 추론](#훈련-평가-추론)
+- [MRC 학습 및 평가](#MRC-학습-및-평가-)
+- [Retriever](#Retriever)
+- [Retriever](#Retriever)
 
-### 요구 사항
+
+## 요구 사항 🚀
 ```
 !pip install datasets
 !pip install transformers
@@ -19,13 +28,14 @@ ODQA 기반 챗봇 생성
 !sudo apt-get install curl git
 !bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
 ```
-### 파일 구성(tree 구조)
+### 파일 구성
+(tree 구조)
 
 ### 데이터
 - MRC 학습 데이터 : KLUE MRC Dataset
 - Retriver 도메인 데이터 : wikipedia  
 
-## 훈련, 평가, 추론
+### 훈련, 평가, 추론
 
 ### MRC 학습 및 평가
 train.py 를 실행하면 mrc 모델의 학습이 진행됩니다. 
@@ -35,8 +45,7 @@ python train.py --output_dir [path to save trained model] --do_train
 # 평가 예시
 python train.py --model_name_or_path [path to load trained model] --do_eval
 ```
-### Retriever 
-
+### Retriever
 ```
 ```
 ### inference
