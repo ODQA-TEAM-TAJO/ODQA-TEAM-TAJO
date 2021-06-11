@@ -61,18 +61,8 @@ def main():
     datasets = load_from_disk(data_args.dataset_name)
     print(datasets)
 
-    # Load pretrained model and tokenizer
-    config = AutoConfig.from_pretrained(
-        model_args.config_name
-        if model_args.config_name
-        else model_args.model_name_or_path,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_args.tokenizer_name
-        if model_args.tokenizer_name
-        else model_args.model_name_or_path,
-        use_fast=True,
-    )
+    model = customAddedConvModel.from_pretrained(model_args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path, use_fast =True)
     
     # add question type tags as special token
     tag=['[CITE]', '[QUANTITY]', '[WHO]', '[WHEN]', '[WHERE]', '[WHAT]', '[HOW]', '[WHY]']
