@@ -1,8 +1,6 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/50580028/121635097-a377c880-cac0-11eb-934b-8433220c87d2.png"></p>
 <h1 align="center">TAJO chatbot📚</h1>
 
-## 데모 영상
-
 ## Table of Contents
 - [프로젝트 소개 ✨](#프로젝트-소개-)
 - [요구 사항 🚀](#요구-사항-)
@@ -17,8 +15,6 @@
 - 주어진 질문에 적절한 답을 도출하는 질의응답 모델 구현
 - Retriever, Reader 두 단계로 구성
   <p align="left"><img src="https://user-images.githubusercontent.com/50580028/121690356-b611f200-cb00-11eb-8d45-3a96c87b6a01.png" width="70%" height="70%"></p>
-- 프로젝트 진행 과정에 대해 자세히 알고 싶다면? 
-  노션 링크 추가
 ## 요구 사항 🚀
 ```
 !pip install datasets
@@ -35,7 +31,30 @@
 !bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
 ```
 ## 파일 구성
-(tree 구조)
+```
+|-- dpr  # Retriever
+|   |-- dpr_train.py
+|   |-- korquad_preprocess.py
+|   `-- squad_to_dpr.py
+|-- mrc  # Reader
+|   |-- tag_compound
+|   |   |-- __init__.py
+|   |   |-- data
+|   |   |   |-- tag_train.tsv
+|   |   |   |-- tag_train_augmented.tsv
+|   |   |   `-- tag_valid.tsv
+|   |   |-- inference.py
+|   |   |-- load_data.py
+|   |   |-- tag_compound.py
+|   |   |-- tag_inference.py
+|   |   `-- train.py
+|   |-- arguments.py
+|   |-- customAddedConv.py
+|   |-- train.py
+|   |-- trainer_qa.py
+|   `-- utils_qa.py
+`-- readme.md
+```
 
 ## Retriever 학습 및 평가
 ### 데이터
