@@ -20,7 +20,6 @@
 ```
 !pip install datasets
 !pip install transformers
-!pip install rank_bm25
 !pip install elasticsearch
 !pip install pororo
 
