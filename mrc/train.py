@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import pickle
+from glob import glob
 from datasets import load_metric, load_from_disk
 import pandas as pd
 
@@ -68,11 +69,6 @@ def main():
     tag=['[CITE]', '[QUANTITY]', '[WHO]', '[WHEN]', '[WHERE]', '[WHAT]', '[HOW]', '[WHY]']
     special_tokens_dict = {'additional_special_tokens': tag}
     tokenizer.add_special_tokens(special_tokens_dict)
-
-    # add compound nouns to dictionary
-    with open('./tag_compound/data/compound_train.pickle', 'rb') as f:
-        compounds = pickle.load(f)
-    tokenizer.add_tokens(list(compounds))
 
     model = AutoModelForQuestionAnswering.from_pretrained(
         model_args.model_name_or_path,
@@ -373,12 +369,6 @@ def run_mrc(data_args, training_args, model_args, datasets, tokenizer, model):
 
 if __name__ == "__main__":
     path = os.getcwd()
-
-    # run compound-generator if files do not exists.
-    file_comp = ['compound_train.pickle', 'compound_valid.pickle', 'compound_test.pickle']
-    if all(os.path.exists(os.path.join('./tag_compound/data', f)) for f in file_comp):
-        print('compound-noun files exists.')
-    else: tag_compound.generate_compound()
         
     # run tag-generator if files do not exists.
     file_tag = ['tag_train_augmented.tsv', 'tag_train.tsv', 'tag_valid.tsv']
@@ -386,12 +376,11 @@ if __name__ == "__main__":
         print('tag train and valid files exists.')
     else: tag_compound.label_tag()
 
-    # train tag classifier if test tag file do not exist.
-    if os.path.exists('./tag_compound/data/tag_test.tsv'):
+    # train tag classifier if checkpoints do not exist.
+    if glob('./tag_compound/results/*'):
         print('tag test file exists.')
     else:
         train_tag.train()
-        infer_tag.main(600)
 
     # train retriever and reader
     main()
