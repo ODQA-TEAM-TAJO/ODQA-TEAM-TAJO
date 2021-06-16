@@ -6,7 +6,7 @@ from glob import glob
 from datasets import load_metric, load_from_disk
 import pandas as pd
 
-from transformers import AutoConfig, AutoModelForQuestionAnswering, AutoTokenizer
+from transformers import AutoTokenizer
 
 from transformers import (
     DataCollatorWithPadding,
@@ -44,8 +44,6 @@ def main():
     print(f"data is from {data_args.dataset_name}")
     print(f'training info \n', training_args)
 
-
-
     # Setup logging
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -62,6 +60,7 @@ def main():
     datasets = load_from_disk(data_args.dataset_name)
     print(datasets)
 
+    # load model and tokenizer
     model = customAddedConvModel.from_pretrained(model_args.model_name_or_path)
     tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path, use_fast =True)
     
@@ -70,11 +69,6 @@ def main():
     special_tokens_dict = {'additional_special_tokens': tag}
     tokenizer.add_special_tokens(special_tokens_dict)
 
-    model = AutoModelForQuestionAnswering.from_pretrained(
-        model_args.model_name_or_path,
-        from_tf=bool(".ckpt" in model_args.model_name_or_path),
-        config=config,
-    )
     model.resize_token_embeddings(len(tokenizer))
 
     # train & save sparse embedding retriever if true
