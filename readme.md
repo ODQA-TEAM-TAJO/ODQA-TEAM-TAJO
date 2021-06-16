@@ -33,15 +33,42 @@
 !python3 -m pip install konlpy
 !sudo apt-get install curl git
 !bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
+
+# Haystack 설치
+!pip install git+https://github.com/deepset-ai/haystack.git
 ```
 ## 파일 구성
-(tree 구조)
+```
+$> tree -d
+.
+├── /dpr
+│     ├── dpr_train.py
+│     ├── korquad_preprocess.ipynb
+│     └── squad_to_dpr.py
+├── /mrc
+│     ├── /tag_compound
+│     │      ├── inference.py
+│     │      ├── load_data.py
+│     │      ├── tag_compound.py
+│     │      ├── tag_inference.py
+│     │      └── train.py
+│     ├── arguments.py
+│     ├── customAddedConv.py
+│     ├── train.py
+│     ├── trainer_qa.py
+│     └── utils_qa.py
+└── readme.md
+``` 
 
 ## Retriever 학습 및 평가
 ### 데이터
-- Retriver 도메인 데이터 : wikipedia (수정 필요)
+- Retriver 학습 데이터 : wikipedia기반 QA 데이터셋(KorQuAD 1.0, AI hub 기계 독해)
 ### 학습 및 추론
+- [korquad_preprocess.ipynb](https://github.com/ODQA-TEAM-TAJO/ODQA-TEAM-TAJO/blob/main/dpr/korquad_preprocess.py) 실행
+  - KorQuAD 1.0, AI hub 데이터 셋을 합치고 DPR 학습에 맞도록 positive-negative pair dataset 구성
+  - 각 query마다 Elasticsearch를 이용해서 negative sample을 16개씩 생성
 ```
+python dpr_train.py
 ```
 ## Reader(MRC) 학습 및 평가
 ### 데이터
