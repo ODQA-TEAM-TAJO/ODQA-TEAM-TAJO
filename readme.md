@@ -12,8 +12,9 @@
 
 ## 프로젝트 소개 ✨
 #### Open Domain Question Answering
-- 주어진 질문에 적절한 답을 도출하는 질의응답 모델 구현
-- Retriever, Reader 두 단계로 구성
+- ODQA 는 주어진 질문에 적절한 답을 찾는 과정이며,Retriever, Reader 두 단계로 구성되어 있습니다.
+- 먼저 질문에 대한 답을 품고 있는 지문을 검색하는 Retriver 과정을 거치게 됩니다.
+- 이후 해당 지문 속 정답을 찾는 Reader 과정을 통해 최종 아웃풋을 얻을 수 있습니다.
   <p align="left"><img src="https://user-images.githubusercontent.com/50580028/121690356-b611f200-cb00-11eb-8d45-3a96c87b6a01.png" width="70%" height="70%"></p>
 ## 요구 사항 🚀
 ```
@@ -58,7 +59,7 @@
 
 ## Retriever 학습 및 평가
 ### 데이터
-- Retriver 도메인 데이터 : wikipedia (수정 필요)
+- Retriver 도메인 데이터 : wikipedia
 ### 학습 및 추론
 ```
 ```
@@ -69,14 +70,15 @@
 ### 학습 및 추론
 train.py 를 실행하면 mrc 모델의 학습이 진행됩니다. 
 ```
+cd ./mrc
 # 학습 예시 (학습 중 validation 을 동시에 하려면 --do_eval 추가)
 python train.py --output_dir [path to save trained model] --do_train
 # 추론 예시
 python train.py --model_name_or_path [path to load trained model] --do_eval
 ```
 ## Inference
-```
-```
+[Demo-site](https://github.com/ODQA-TEAM-TAJO/ODQA-Demo-Site)
+
 ## Contributor
 | [김남혁_T1014](https://github.com/skaurl) | [서일_T1093](https://github.com/Usurper47) | [엄희준_T1122](https://github.com/eomheejun) | [우종빈_T1129](https://github.com/JongbinWoo) | [이보현_T1148](https://github.com/bonniehyeon) | [장보윤_T1178](https://github.com/dataminegames) |
 | :----------: |  :--------:  |  :---------: |  :---------: | :---------: | :---------: |
