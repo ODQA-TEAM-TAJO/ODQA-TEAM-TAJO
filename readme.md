@@ -1,8 +1,6 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/50580028/121635097-a377c880-cac0-11eb-934b-8433220c87d2.png"></p>
 <h1 align="center">TAJO chatbot📚</h1>
 
-## 데모 영상
-
 ## Table of Contents
 - [프로젝트 소개 ✨](#프로젝트-소개-)
 - [요구 사항 🚀](#요구-사항-)
@@ -14,11 +12,10 @@
 
 ## 프로젝트 소개 ✨
 #### Open Domain Question Answering
-- 주어진 질문에 적절한 답을 도출하는 질의응답 모델 구현
-- Retriever, Reader 두 단계로 구성
+- ODQA 는 주어진 질문에 적절한 답을 찾는 과정이며,Retriever, Reader 두 단계로 구성되어 있습니다.
+- 먼저 질문에 대한 답을 품고 있는 지문을 검색하는 Retriver 과정을 거치게 됩니다.
+- 이후 해당 지문 속 정답을 찾는 Reader 과정을 통해 최종 아웃풋을 얻을 수 있습니다.
   <p align="left"><img src="https://user-images.githubusercontent.com/50580028/121690356-b611f200-cb00-11eb-8d45-3a96c87b6a01.png" width="70%" height="70%"></p>
-- 프로젝트 진행 과정에 대해 자세히 알고 싶다면? 
-  노션 링크 추가
 ## 요구 사항 🚀
 ```
 !pip install datasets
@@ -39,30 +36,34 @@
 ```
 ## 파일 구성
 ```
-$> tree -d
-.
-├── /dpr
-│     ├── dpr_train.py
-│     ├── korquad_preprocess.ipynb
-│     └── squad_to_dpr.py
-├── /mrc
-│     ├── /tag_compound
-│     │      ├── inference.py
-│     │      ├── load_data.py
-│     │      ├── tag_compound.py
-│     │      ├── tag_inference.py
-│     │      └── train.py
-│     ├── arguments.py
-│     ├── customAddedConv.py
-│     ├── train.py
-│     ├── trainer_qa.py
-│     └── utils_qa.py
-└── readme.md
-``` 
+|-- dpr  # Retriever
+|   |-- dpr_train.py
+|   |-- korquad_preprocess.py
+|   `-- squad_to_dpr.py
+|-- mrc  # Reader
+|   |-- tag_compound
+|   |   |-- __init__.py
+|   |   |-- data
+|   |   |   |-- tag_train.tsv
+|   |   |   |-- tag_train_augmented.tsv
+|   |   |   `-- tag_valid.tsv
+|   |   |-- inference.py
+|   |   |-- load_data.py
+|   |   |-- tag_compound.py
+|   |   |-- tag_inference.py
+|   |   `-- train.py
+|   |-- arguments.py
+|   |-- customAddedConv.py
+|   |-- train.py
+|   |-- trainer_qa.py
+|   `-- utils_qa.py
+`-- readme.md
+```
 
 ## Retriever 학습 및 평가
 ### 데이터
 - Retriver 학습 데이터 : wikipedia기반 QA 데이터셋(KorQuAD 1.0, AI hub 기계 독해)
+
 ### 학습 및 추론
 - [korquad_preprocess.ipynb](https://github.com/ODQA-TEAM-TAJO/ODQA-TEAM-TAJO/blob/main/dpr/korquad_preprocess.py) 실행
   - KorQuAD 1.0, AI hub 데이터 셋을 합치고 DPR 학습에 맞도록 positive-negative pair dataset 구성
@@ -77,14 +78,15 @@ python dpr_train.py
 ### 학습 및 추론
 train.py 를 실행하면 mrc 모델의 학습이 진행됩니다. 
 ```
+cd ./mrc
 # 학습 예시 (학습 중 validation 을 동시에 하려면 --do_eval 추가)
 python train.py --output_dir [path to save trained model] --do_train
 # 추론 예시
 python train.py --model_name_or_path [path to load trained model] --do_eval
 ```
 ## Inference
-```
-```
+[Demo-site](https://github.com/ODQA-TEAM-TAJO/ODQA-Demo-Site)
+
 ## Contributor
 | [김남혁_T1014](https://github.com/skaurl) | [서일_T1093](https://github.com/Usurper47) | [엄희준_T1122](https://github.com/eomheejun) | [우종빈_T1129](https://github.com/JongbinWoo) | [이보현_T1148](https://github.com/bonniehyeon) | [장보윤_T1178](https://github.com/dataminegames) |
 | :----------: |  :--------:  |  :---------: |  :---------: | :---------: | :---------: |
